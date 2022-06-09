@@ -4,7 +4,7 @@ const settings = {
 
 const sketch = () => {
   return ({ context, width, height }) => {
-    context.fillStyle = 'white';
+    context.fillStyle = 'aqua';
     context.fillRect(0, 0, width, height);
 
     const border = 20;
@@ -12,7 +12,7 @@ const sketch = () => {
  
     context.fillStyle = "black";
     context.font = "30px serif";
-    context.fillText("Happiness Score", width/ 2 - 50, height - 200);
+    context.fillText("Happiness Score", width/ 2  + 500, height  - 150);
     context.fillStyle = "black";
     context.font = "15px serif";
     for(var i = 1; i <= 15; i++){
@@ -57,7 +57,10 @@ const sketch = () => {
 
         var centerX = 120 * HappinessScore[i] + border - pixelX + 60;
         var centerY =120 * (1 + corruption[i] * 10);
-        var radius = 14;
+        var radius = (146 - RANK[i]) / 4 ;
+        if(radius <= 10){
+          radius = 10;
+        }
         var font = Country[i];
         if(i % 4  == 0){
           context.fillStyle = "#8A2BE2";
