@@ -9,7 +9,7 @@ const sketch = () => {
 
     const border = 20;
     const pixelX = 17;
- 
+    //tulisan happines score di sumbu X
     context.fillStyle = "black";
     context.font = "30px serif";
     context.fillText("Happiness Score", width/ 2  + 500, height  - 150);
@@ -18,7 +18,7 @@ const sketch = () => {
     for(var i = 1; i <= 15; i++){
       context.fillText(`${[i]}`, 120 * [i] + border - pixelX + 60, height - 70);
     }
-   
+   //tulisan preceptions of Corruption di sumbu Y
     context.save();
     context.rotate((Math.PI / 180) * 270);
     context.font = "30px serif";
@@ -38,6 +38,7 @@ const sketch = () => {
     context.stroke();
 
 
+    // membaca data dari excel dan simpan di dalam array
     var GDP = [];
     var Country = [];
     var HappinessScore = [];
@@ -52,8 +53,8 @@ const sketch = () => {
         HappinessScore.push(d.HappinessScore);
       })
       var len = Country.length;
-      
-      for(let i = 0;  i < 20; i++){
+      // cetak bubble
+      for(let i = 0;  i < len; i++){
 
         var centerX = 120 * HappinessScore[i] + border - pixelX + 60;
         var centerY =120 * (1 + corruption[i] * 10);
