@@ -1,5 +1,8 @@
+// Deklarasi method bubble
+
 BUBBLE = document.getElementById("bubble");
 
+// Penambahan nilai pada variable trace serta menambahkan mode, warna, dan opacity
 var trace1 = {
   x: [
     "Denmark",
@@ -77,6 +80,7 @@ var trace1 = {
   },
 };
 
+
 var data = [trace1];
 var layout = {
   title: "Happiness Score",
@@ -86,4 +90,6 @@ var layout = {
 };
 var config = { responsive: true };
 
+// Deklarasi Javascript dengan menggunakan method dengan passing elemen 
+// DIV DOM, data array, layout, dan config hash
 Plotly.newPlot(BUBBLE, data, layout, config);
