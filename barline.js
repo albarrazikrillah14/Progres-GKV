@@ -36,7 +36,7 @@ const maks_X = 4300;
 const maks_Y = 1100;
 
 const line_X = 4300;
-const line_Y = 1000;
+const line_Y = 1100;
 
 
 //jarak chart dengan bg belakang
@@ -76,22 +76,33 @@ const sketch = () => {
 
       context.beginPath();
       context.fillStyle = 'black';
-      context.font = "60px Arial";
-      context.fillText('Tingkat kebahagiaan di Dunia Berdasarkan Happiness score', 300, 340)
+      context.font = "65px Arial";
+      context.fillText('Tingkat kebahagiaan di Dunia Berdasarkan Happiness score, GDP per capita, dan Perception of Corruption', 300, 340)
       context.closePath();
 
-      context.beginPath();
+      /*context.beginPath();
       context.fillStyle = 'black';
       context.font = "60px Arial";
       context.fillText('Tingkat kebahagiaan di Dunia Berdasarkan Happiness score, GDP per capita, dan Perception of Corruption', 300, 1750)
       context.closePath();
+      */
     }
 
   //VERTIKAL
-    //Color pallete 
+    //Color pallete 1 
     var gradV1 = context.createLinearGradient(0,0,0,700);
     gradV1.addColorStop(0, "#5D8BF4");
     gradV1.addColorStop(1, "#68A7AD");
+
+    //Color pallete 2 
+    var gradV2 = context.createLinearGradient(0,0,0,700);
+    gradV2.addColorStop(0, "#0AA1DD");
+    gradV2.addColorStop(1, "#5584AC");
+
+    //Color pallete 3 
+    var gradV3 = context.createLinearGradient(0,0,0,700);
+    gradV3.addColorStop(0, "#5485ff");
+    gradV3.addColorStop(1, "#91f8ff");
 
   //SELURUH AREA
   //Color pallete 1 
@@ -196,25 +207,65 @@ const sketch = () => {
     context.restore();
 
     //bikin bar chart
-    var bar_width = grid_gap_X / 2;
+    var bar_width = grid_gap_X / 4;
     
     for(var i = 0; i < country.length; i++){
       var hap_data = country[i][1];
       context.save();
       context.fillStyle = gradV1; 
+      context.fillRect(bar_width/2 - bar_width*2 + (grid_gap_X * (i + 1)), 0, bar_width, ((Math.log(hap_data/min_hap)/Math.log(2)) + 1) / (total_hap.length + 1)* maks_Y);
+      context.restore();
+
+      if(country[i][2] < min_hap)
+        var hap_data = (country[i][2] / (min_hap / 2) + 1) * min_hap / 3;
+      else
+        var hap_data = country[i][2];
+      context.save();
+      context.fillStyle = gradV2; 
       context.fillRect(bar_width/2 - bar_width + (grid_gap_X * (i + 1)), 0, bar_width, ((Math.log(hap_data/min_hap)/Math.log(2)) + 1) / (total_hap.length + 1)* maks_Y);
       context.restore();
+
+      if(country[i][3] < min_hap)
+        var hap_data = ((country[i][3] / (min_hap / 2)) + 1) * min_hap / 3;
+      else
+        var hap_data = country[i][3];
+      context.save();
+      context.fillStyle = gradV3; 
+      context.fillRect(bar_width/2 + (grid_gap_X * (i + 1)), 0, bar_width, ((Math.log(hap_data/min_hap)/Math.log(2)) + 1) / (total_hap.length + 1)* maks_Y);
+      context.restore();
+      
     }
     
     //keterangan warna bar
     context.save();
     context.fillStyle = gradV1;
-    context.fillRect(maks_X + 25, maks_Y / 2 + 23, bar_width/2, bar_width/2);
+    context.fillRect(maks_X + 25, maks_Y / 2 + 33, bar_width/2, bar_width/2);
     context.fillStyle = 'snow';
     context.font = "30px Arial";
     context.scale(1, -1);
-    context.fillText("Happiness score", maks_X + 90, (maks_Y / 2 + 40) * -1);
+    context.fillText("Happiness score", maks_X + 60, (maks_Y / 2 + 35) * -1);
     context.restore();
+
+    
+    context.save();
+    context.fillStyle = gradV2;
+    context.fillRect(maks_X + 25, maks_Y / 2 - 2, bar_width/2, bar_width/2);
+    context.fillStyle = 'snow';
+    context.font = "30px Arial";
+    context.scale(1, -1);
+    context.fillText("GDP per capita", maks_X + 60, (maks_Y / 2) * -1);
+    context.restore();
+
+    
+    context.save();
+    context.fillStyle = gradV3;
+    context.fillRect(maks_X + 25, maks_Y / 2 - 40, bar_width/2, bar_width/2);
+    context.fillStyle = 'snow';
+    context.font = "30px Arial";
+    context.scale(1, -1);
+    context.fillText("Perception of corruption", maks_X + 60, (maks_Y / 2 - 40) * -1);
+    context.restore();
+    
 
     //reset position
     context.translate(-left_gap, height-bot_gap);
